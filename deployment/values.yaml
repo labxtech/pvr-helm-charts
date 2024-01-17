@@ -1,0 +1,28 @@
+namespace: ""
+microservice_name: ""
+docker_image: ""
+
+service_type: ""
+service_port: ""
+container_port: ""
+
+min_replica: ""
+max_replica: ""
+
+memory_request: ""
+memory_limit: ""
+memory_based_scale_threshold: ""
+
+cpu_request: ""
+cpu_limit: ""
+cpu_based_scale_threshold: ""
+
+
+liveness_prob_delay: ""
+liveness_prob_period: ""
+readiness_prob_delay: ""
+readiness_prob_period: ""
+terminate_grace_period: ""
+health_check_path: ""
+env_vars:
+
