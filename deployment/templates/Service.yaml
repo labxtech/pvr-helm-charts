@@ -3,8 +3,6 @@ kind: Service
 metadata:
   name:  {{ .Values.microservice_name }}
   namespace: {{ .Values.namespace }}
-  annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: {{ .Values.health_check_path }}
 spec:
   ports:
     - port: {{ .Values.service_port }}

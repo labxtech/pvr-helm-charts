@@ -13,7 +13,7 @@ spec:
         app: {{ $.Values.microservice_name }}
     spec:
       terminationGracePeriodSeconds: {{ .Values.terminate_grace_period }}
-      priorityClassName: "priority-class-{{ .Values.microservice_name }}-pods"
+      priorityClassName: {{ .Values.microservice_name }}-pods
       containers:
         - name: {{ $.Values.microservice_name }}
           image: {{ .Values.docker_image }}:{{ .Values.docker_image_tag }}

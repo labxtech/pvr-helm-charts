@@ -1,10 +1,11 @@
 namespace: ""
 microservice_name: ""
+domain: ""
 docker_image: ""
 
-service_type: ""
-service_port: ""
 container_port: ""
+service_type: "ClusterIP"
+service_port: ""
 
 min_replica: ""
 max_replica: ""
