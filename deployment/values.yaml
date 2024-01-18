@@ -7,6 +7,8 @@ container_port: ""
 service_type: "ClusterIP"
 service_port: ""
 
+db_migration_enabled: "false"
+
 min_replica: ""
 max_replica: ""
 

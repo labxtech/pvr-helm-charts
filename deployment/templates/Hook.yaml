@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $.Values.microservice_name }}-migration
+  namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: dbmigration
+          image: {{ .Values.docker_image }}:{{ .Values.docker_image_tag }}
+          env:
+          {{- range $key, $val := .Values.env_vars }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+          {{- end }}
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
+      restartPolicy: Never
+  backoffLimit: 0
