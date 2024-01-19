@@ -10,8 +10,10 @@ spec:
   template:
     spec:
       containers:
-        - name: dbmigration
+        - name: {{ $.Values.microservice_name }}-migration
           image: {{ .Values.docker_image }}:{{ .Values.docker_image_tag }}
+          command: ["bin/api"]
+          args: ["--migrate"]
           env:
           {{- range $key, $val := .Values.env_vars }}
             - name: {{ $key }}
