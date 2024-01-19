@@ -12,7 +12,7 @@ This helm chart creates a deployment with service
 | docker_image_tag        | Tag of docker image                                | "" | v1.1.0 |
 | container_port          | Port that is being exposed from container          | "" | 80 |
 | service_port            | Port that will be exposed for service              | "" | 8001|
-| service_type            | Type of the service                                | "" | NodePort |
+| service.type            | Type of the service                                | "" | NodePort |
 | replicas                | Number of replicas                                 | "" | 10 |
 | memory_request          | Requested memory size                              | "" | 512Mi |
 | cpu_request             | Requested CPU size                                 | "" | 250m |

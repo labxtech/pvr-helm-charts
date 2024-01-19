@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ $.Values.microservice_name }}-migration
+  name: {{ $.Values.name }}-migration
   namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/hook: PreSync
@@ -10,7 +10,7 @@ spec:
   template:
     spec:
       containers:
-        - name: {{ $.Values.microservice_name }}-migration
+        - name: {{ $.Values.name }}-migration
           image: {{ .Values.registry.image.repo }}:{{ .Values.registry.image.tag }}
           command: ["bin/api"]
           args: ["--migrate"]

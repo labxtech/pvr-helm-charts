@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  {{ $.Values.microservice_name }}
+  name:  {{ $.Values.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
     matchLabels:
-      app: {{ $.Values.microservice_name }}
+      app: {{ $.Values.name }}
   template:
     metadata:
       labels:
-        app: {{ $.Values.microservice_name }}
+        app: {{ $.Values.name }}
     spec:
-      terminationGracePeriodSeconds: {{ .Values.terminate_grace_period }}
-      priorityClassName: {{ .Values.microservice_name }}-pods
+      terminationGracePeriodSeconds: {{ .Values.health.terminate_grace_period }}
+      priorityClassName: {{ .Values.name }}
       containers:
-        - name: {{ $.Values.microservice_name }}
+        - name: {{ $.Values.name }}
           image: {{ .Values.registry.image.repo }}:{{ .Values.registry.image.tag }}
           imagePullPolicy: Always
           env:
@@ -42,26 +42,26 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           ports:
-            - containerPort: {{ .Values.container_port }}
+            - containerPort: {{ .Values.container.port }}
           resources:
             requests:
-              memory: {{ .Values.memory_request }}
-              cpu: {{ .Values.cpu_request }}
+              memory: {{ .Values.resource.memory.request }}
+              cpu: {{ .Values.resource.cpu.request }}
             limits:
-              memory: {{ .Values.memory_limit }}
-              cpu: {{ .Values.cpu_limit }}
+              memory: {{ .Values.resource.memory.limit }}
+              cpu: {{ .Values.resource.cpu.limit }}
           livenessProbe:
             httpGet:
-              port: {{ .Values.container_port }}
-              path: {{ .Values.health_check_path }}
-            initialDelaySeconds: {{ .Values.liveness_prob_delay }}
-            periodSeconds: {{ .Values.liveness_prob_period }}
+              port: {{ .Values.container.port }}
+              path: {{ .Values.health.health_check_path }}
+            initialDelaySeconds: {{ .Values.health.liveness_prob_delay }}
+            periodSeconds: {{ .Values.health.liveness_prob_period }}
           readinessProbe:
             httpGet:
-              port: {{ .Values.container_port }}
-              path: {{ .Values.health_check_path }}
-            initialDelaySeconds: {{ .Values.readiness_prob_delay }}
-            periodSeconds: {{ .Values.readiness_prob_period }}
+              port: {{ .Values.container.port }}
+              path: {{ .Values.health.health_check_path }}
+            initialDelaySeconds: {{ .Values.health.readiness_prob_delay }}
+            periodSeconds: {{ .Values.health.readiness_prob_period }}
       {{- if .Values.registry.private }}
       {{- if eq .Values.registry.type "github" }}
       imagePullSecrets:

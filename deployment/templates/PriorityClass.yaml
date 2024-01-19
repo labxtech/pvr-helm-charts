@@ -1,7 +1,7 @@
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  name: {{ .Values.microservice_name }}-pods
+  name: {{ .Values.name }}
 value: 60999
 globalDefault: false
 description: "busineess pods"

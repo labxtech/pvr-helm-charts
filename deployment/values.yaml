@@ -1,5 +1,13 @@
+name: ""
 namespace: ""
-microservice_name: ""
+
+container:
+  port:
+  db_migration_enabled: "false"
+
+service:
+  type: "ClusterIP"
+  port:
 
 registry:
   private: "true"
@@ -12,34 +20,35 @@ secrets:
   enabled: "false"
   values:
 
+env_vars:
+
+resource:
+  replica:
+    min: "1"
+    max: "2"
+
+  scale_threshold:
+    cpu: "70"
+    memory: "70"
+
+  cpu:
+    request:
+    limit:
+
+  memory:
+    request:
+    limit:
+
+health:
+  health_check_path: "/healthz"
+  liveness_prob_delay: "30"
+  liveness_prob_period: "10"
+  readiness_prob_delay: "30"
+  readiness_prob_period: "10"
+  terminate_grace_period: "30"
+
 ingress:
   enabled: true
   class: nginx
   domain: ""
-
-container_port: ""
-service_type: "ClusterIP"
-service_port: ""
-
-db_migration_enabled: "false"
-
-min_replica: ""
-max_replica: ""
-
-memory_request: ""
-memory_limit: ""
-memory_based_scale_threshold: ""
-
-cpu_request: ""
-cpu_limit: ""
-cpu_based_scale_threshold: ""
-
-
-liveness_prob_delay: ""
-liveness_prob_period: ""
-readiness_prob_delay: ""
-readiness_prob_period: ""
-terminate_grace_period: ""
-health_check_path: ""
-env_vars:
 
