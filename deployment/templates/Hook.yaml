@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: {{ $.Values.microservice_name }}-migration
-          image: {{ .Values.registry.image }}:{{ .Values.registry.tag }}
+          image: {{ .Values.registry.image.repo }}:{{ .Values.registry.image.tag }}
           command: ["bin/api"]
           args: ["--migrate"]
           env:

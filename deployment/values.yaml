@@ -4,11 +4,13 @@ microservice_name: ""
 registry:
   private: "true"
   type: "github"
-  image: ""
-  tag: ""
+  image:
+    repo: ""
+    tag: ""
 
 secrets:
   enabled: "false"
+  values:
 
 ingress:
   enabled: true

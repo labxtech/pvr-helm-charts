@@ -16,7 +16,7 @@ spec:
       priorityClassName: {{ .Values.microservice_name }}-pods
       containers:
         - name: {{ $.Values.microservice_name }}
-          image: {{ .Values.registry.image }}:{{ .Values.registry.tag }}
+          image: {{ .Values.registry.image.repo }}:{{ .Values.registry.image.tag }}
           imagePullPolicy: Always
           env:
           {{- range $key, $val := .Values.env_vars }}
