@@ -16,13 +16,31 @@ spec:
       priorityClassName: {{ .Values.microservice_name }}-pods
       containers:
         - name: {{ $.Values.microservice_name }}
-          image: {{ .Values.docker_image }}:{{ .Values.docker_image_tag }}
+          image: {{ .Values.registry.image }}:{{ .Values.registry.tag }}
           imagePullPolicy: Always
           env:
           {{- range $key, $val := .Values.env_vars }}
             - name: {{ $key }}
               value: {{ $val | quote }}
           {{- end }}
+
+          {{- if .Values.secrets.enabled }}
+          {{- range $key, $val := .Values.secrets.values }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $val }}
+                  key: SECRET_TOKEN
+          {{- end }}
+          {{- end }}
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           ports:
             - containerPort: {{ .Values.container_port }}
           resources:
@@ -44,5 +62,9 @@ spec:
               path: {{ .Values.health_check_path }}
             initialDelaySeconds: {{ .Values.readiness_prob_delay }}
             periodSeconds: {{ .Values.readiness_prob_period }}
+      {{- if .Values.registry.private }}
+      {{- if eq .Values.registry.type "github" }}
       imagePullSecrets:
-        - name: dockerconfigjson-github-com
+        - name: ghcr-dockerconfig
+      {{- end }}
+      {{- end }}

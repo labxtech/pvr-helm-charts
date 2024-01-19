@@ -1,7 +1,19 @@
 namespace: ""
 microservice_name: ""
-domain: ""
-docker_image: ""
+
+registry:
+  private: "true"
+  type: "github"
+  image: ""
+  tag: ""
+
+secrets:
+  enabled: "false"
+
+ingress:
+  enabled: true
+  class: nginx
+  domain: ""
 
 container_port: ""
 service_type: "ClusterIP"
