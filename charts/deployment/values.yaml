@@ -3,21 +3,21 @@ namespace: ""
 
 container:
   port:
-  db_migration_enabled: "false"
+  db_migration_enabled: false
 
 service:
   type: "ClusterIP"
   port:
 
 registry:
-  private: "true"
+  private: true
   type: "github"
   image:
     repo: ""
     tag: ""
 
 secrets:
-  enabled: "false"
+  enabled: false
   values:
 
 env_vars:
