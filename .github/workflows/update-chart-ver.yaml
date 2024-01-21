@@ -1,0 +1,57 @@
+name: rollout-update-chart
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - charts/deployment/templates/**
+
+jobs:
+  deploy:
+    runs-on:  ubuntu-latest
+    defaults:
+      run:
+        working-directory: charts/deployment
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Retrieve Commit Message
+        run: |
+          echo "MESSAGE=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
+
+      - name: Bump version
+        run: |
+          version=$(grep 'version:' Chart.yaml | awk '{print $2}')
+          major=$(echo $version | cut -d. -f1)
+          minor=$(echo $version | cut -d. -f2)
+          patch=$(echo $version | cut -d. -f3)
+          patch=$((patch + 1))
+          new_version="$major.$minor.$patch"
+          sed -i "s/version: $version/version: $new_version/g" Chart.yaml
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.HELM_CHART_PRIVATE_KEY }}
+
+      - name: Checkout temp repo
+        uses: actions/checkout@v3
+        with:
+          repository: labxtech/pvr-helm-charts
+          path: temp
+          ssh-key: ${{ secrets.HELM_CHART_PRIVATE_KEY }}
+
+      - name: Update Chart.yaml for rollout
+        run: |
+          cp ${{ github.workspace }}/charts/deployment/Chart.yaml ${{ github.workspace }}/temp/charts/deployment/Chart.yaml
+
+      - name: Commit & Push changes
+        run: |
+          git -C ${{ github.workspace }}/temp config user.email "pvrbot@printnow.app"
+          git -C ${{ github.workspace }}/temp config user.name "PVR Github BOT"
+          git -C ${{ github.workspace }}/temp add ${{ github.workspace }}/temp/charts/deployment/Chart.yaml
+          git -C ${{ github.workspace }}/temp commit -m "bump: ${{ env.MESSAGE }}"
+          git -C ${{ github.workspace }}/temp push
+

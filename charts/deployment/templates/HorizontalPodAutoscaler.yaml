@@ -26,4 +26,3 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ $.Values.resource.scale_threshold.cpu }}
-
