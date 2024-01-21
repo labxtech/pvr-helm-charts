@@ -4,6 +4,8 @@ namespace: ""
 container:
   port:
   db_migration_enabled: false
+  db_migration_command: ["bin/api"]
+  db_migration_args: ["--migrate"]
 
 service:
   type: "ClusterIP"

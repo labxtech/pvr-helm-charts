@@ -13,8 +13,8 @@ spec:
       containers:
         - name: {{ $.Values.name }}-migration
           image: {{ .Values.registry.image.repo }}:{{ .Values.registry.image.tag }}
-          command: ["bin/api"]
-          args: ["--migrate"]
+          command: {{ $.Values.container.db_migration_command }}
+          args: {{ $.Values.container.db_migration_args }}
           env:
           {{- range $key, $val := .Values.env_vars }}
             - name: {{ $key }}
