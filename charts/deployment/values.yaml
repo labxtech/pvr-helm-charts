@@ -53,4 +53,5 @@ ingress:
   enabled: true
   class: nginx
   domain: ""
+  max_upload: "5m"
 
