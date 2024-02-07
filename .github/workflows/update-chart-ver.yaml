@@ -39,7 +39,7 @@ jobs:
       - name: Checkout temp repo
         uses: actions/checkout@v3
         with:
-          repository: labxtech/pvr-helm-charts
+          repository: printnowstack/pvr-helm-charts
           path: temp
           ssh-key: ${{ secrets.HELM_CHART_PRIVATE_KEY }}
 
