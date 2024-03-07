@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   deployment:
   - apiVersion: v2
+    created: "2024-03-07T19:22:49.354430747Z"
+    description: Deployment with HPA and Env Var
+    digest: 88ff3ba41793778fd42503d996cf058f9ecb70e7ca776357a259574e5909ef7d
+    name: deployment
+    urls:
+    - https://github.com/printnowstack/pvr-helm-charts/releases/download/deployment-1.0.25/deployment-1.0.25.tgz
+    version: 1.0.25
+  - apiVersion: v2
     created: "2024-03-07T19:16:15.775472528Z"
     description: Deployment with HPA and Env Var
     digest: ecdbdd3e1f9bb50916e133b68bd2f318537a10af9bf12d4cd98ddbeccd637a80
@@ -73,4 +81,4 @@ entries:
     urls:
     - https://github.com/labxtech/pvr-helm-charts/releases/download/deployment-1.0.16/deployment-1.0.16.tgz
     version: 1.0.16
-generated: "2024-03-07T19:16:15.775515327Z"
+generated: "2024-03-07T19:22:49.354485068Z"
