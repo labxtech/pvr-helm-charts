@@ -56,4 +56,4 @@ ingress:
   max_upload: "5m"
   whitelist_source: "0.0.0.0/0"
   load_balancer_id: "pvr-ingress"
-  proxy_protocol_enabled: true
+  proxy_protocol_enabled: "true"
