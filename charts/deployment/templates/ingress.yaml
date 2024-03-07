@@ -5,7 +5,8 @@ metadata:
   name: {{ $.Values.name }}
   namespace: {{ .Values.namespace }}
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingress.max_upload}}
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingress.max_upload }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.whitelist_source }}
 spec:
   ingressClassName: {{.Values.ingress.class}}
   rules:
