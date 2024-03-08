@@ -55,4 +55,6 @@ ingress:
   domain: ""
   max_upload: "5m"
   whitelist_source: "0.0.0.0/0"
-
+  cert_manager:
+    enabled: false
+    email: sre@printnow.app

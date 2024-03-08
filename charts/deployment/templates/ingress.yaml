@@ -10,6 +10,14 @@ metadata:
 
 spec:
   ingressClassName: {{.Values.ingress.class}}
+
+  {{ if .Values.ingress.cert_manager.enabled }}
+  tls:
+    - hosts:
+      - {{ .Values.ingress.domain }}
+      secretName: {{ $.Values.name }}-cert-issuer
+  {{ end }}
+
   rules:
     - host: {{ .Values.ingress.domain }}
       http:
