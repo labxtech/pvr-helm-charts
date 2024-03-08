@@ -7,20 +7,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingress.max_upload }}
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.whitelist_source }}
-    {{ if .Values.ingress.cert_manager.enabled }}
-    cert-manager.io/issuer: {{ $.Values.name }}
-    acme.cert-manager.io/http01-edit-in-place: "true"
-    {{ end }}
 
 spec:
   ingressClassName: {{.Values.ingress.class}}
-
-  {{ if .Values.ingress.cert_manager.enabled }}
-  tls:
-    - hosts:
-      - {{ .Values.ingress.domain }}
-      secretName: {{ $.Values.name }}-cert-issuer
-  {{ end }}
 
   rules:
     - host: {{ .Values.ingress.domain }}
