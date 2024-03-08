@@ -1,5 +1,5 @@
 apiVersion: v2
 description: Deployment with HPA and Env Var
 name: deployment
-version: 1.0.25
+version: 1.0.26
 
