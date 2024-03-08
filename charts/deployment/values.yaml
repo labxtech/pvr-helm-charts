@@ -55,3 +55,4 @@ ingress:
   domain: ""
   max_upload: "5m"
   whitelist_source: "0.0.0.0/0"
+  tls_enabled: false

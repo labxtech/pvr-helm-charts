@@ -11,6 +11,13 @@ metadata:
 spec:
   ingressClassName: {{.Values.ingress.class}}
 
+  {{ if .Values.ingress.tls_enabled }}
+  tls:
+    - hosts:
+      - {{ .Values.ingress.domain }}
+      secretName: printnow-cloudflare-certificate
+  {{ end }}
+
   rules:
     - host: {{ .Values.ingress.domain }}
       http:
