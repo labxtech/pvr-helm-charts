@@ -9,6 +9,8 @@ metadata:
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.whitelist_source }}
     {{ if .Values.ingress.cert_manager.enabled }}
     cert-manager.io/issuer: {{ $.Values.name }}
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
     {{ end }}
 
 spec:
