@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name:  {{ $.Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  acme:
+    email: dev@printnow.app
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: {{ $.Values.name }}
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
